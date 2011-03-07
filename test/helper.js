@@ -21,3 +21,11 @@ function assertChildNodeTypes(parent, types) {
     equals(child.nodeType, mapped, "nodeType " + mapped)
   })
 }
+
+function assertSameNodes(actual, expected) {
+  equals(actual.length, expected.length, "same number of nodes")
+
+  expected.forEach(function(node, i) {
+    equals(actual[i], node)
+  })
+}

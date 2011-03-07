@@ -8,7 +8,8 @@ var Wapper = {
       if (range.startOffset == range.endOffset) return
 
       endParent.splitText(range.endOffset)
-      startParent.splitText(range.startOffset)
+      var middle = startParent.splitText(range.startOffset)
+      return [middle]
     } else {
       startParent.splitText(range.startOffset)
       endParent.splitText(range.endOffset)

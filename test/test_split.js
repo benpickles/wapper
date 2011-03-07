@@ -4,13 +4,14 @@ test("with same parent", function() {
   var doc = $("<div>").html("<p>lorem ipsum dolor sit amet.</p>")
   var p = doc.find("p")[0]
 
-  Wapper.split({
+  var elems = Wapper.split({
     startContainer: p.firstChild,
     startOffset: 6,
     endContainer: p.firstChild,
     endOffset: 11
   })
 
+  assertSameNodes(elems, [p.childNodes[1]])
   assertChildNodeTypes(p, [3, 3, 3])
   assertChildNodeText(p, [
     "lorem ",
