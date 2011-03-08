@@ -3,7 +3,7 @@ function assertChildNodeText(parent, texts) {
 
   texts.forEach(function(text, i) {
     var child = parent.childNodes[i]
-    var value = child.nodeType == 1 ? child.innerText : child.textContent
+    var value = child.textContent
     equals(text, value, "textContent/innerText correct")
   })
 }
