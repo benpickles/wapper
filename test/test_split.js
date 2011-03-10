@@ -24,13 +24,19 @@ test("with containing node", function() {
   var doc = $("<div>").html('<p>lorem ipsum <a href="/">dolor</a> sit amet.</p>')
   var p = doc.find("p")[0]
 
-  Wapper.split({
+  var elems = Wapper.split({
+    commonAncestorContainer: p,
     startContainer: p.firstChild,
     startOffset: 6,
     endContainer: p.lastChild,
     endOffset: 4
   })
 
+  assertSameNodes(elems, [
+    p.childNodes[1],
+    p.childNodes[2],
+    p.childNodes[3]
+  ])
   assertChildNodeTypes(p, [3, 3, 1, 3, 3])
   assertChildNodeText(p, [
     "lorem ",
