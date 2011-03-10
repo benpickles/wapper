@@ -3,8 +3,13 @@ function assertChildNodeText(parent, texts) {
 
   texts.forEach(function(text, i) {
     var child = parent.childNodes[i]
-    var value = child.textContent
-    equals(text, value, "textContent/innerText correct")
+
+    if (child) {
+      var value = child.textContent
+      equals(text, value, "textContent correct")
+    } else {
+      ok(false, "missing node")
+    }
   })
 }
 
@@ -17,8 +22,13 @@ function assertChildNodeTypes(parent, types) {
 
   types.forEach(function(type, i) {
     var child = parent.childNodes[i]
-    var mapped = mapping[type]
-    equals(child.nodeType, mapped, "nodeType " + mapped)
+
+    if (child) {
+      var mapped = mapping[type]
+      equals(child.nodeType, mapped, "nodeType " + mapped)
+    } else {
+      ok(false, "missing node")
+    }
   })
 }
 
