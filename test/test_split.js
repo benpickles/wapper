@@ -52,13 +52,20 @@ test("spanning nodes", function() {
   var p1 = doc.find("p:first")[0]
   var p2 = doc.find("p:last")[0]
 
-  Wapper.split({
+  var elems = Wapper.split({
+    commonAncestorContainer: doc[0],
     startContainer: p1.firstChild,
     startOffset: 6,
     endContainer: p2.firstChild,
     endOffset: 3
   })
 
+  assertSameNodes(elems, [
+    p1.childNodes[1],
+    p1.childNodes[2],
+    p1.childNodes[3],
+    p2.firstChild
+  ])
   assertChildNodeTypes(p1, [3, 3, 1, 3])
   assertChildNodeText(p1, [
     "lorem ",
