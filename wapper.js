@@ -67,5 +67,20 @@ var Wapper = {
 
       return between
     }
+  },
+
+  wrap: function(range) {
+    var elems = this.split(range)
+
+    function createWrapper() {
+      return document.createElement("span")
+    }
+
+    for (var i = 0; i < elems.length; i++) {
+      var wrapper = createWrapper()
+      var elem = elems[i]
+      wrapper.appendChild(elem.cloneNode(true))
+      elem.parentNode.replaceChild(wrapper, elem)
+    }
   }
 }
