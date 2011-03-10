@@ -49,11 +49,20 @@ var Wapper = {
           between.push(current)
         }
 
+        var tail = []
         current = endRoot
 
         for (current; current; current = current.previousSibling) {
-          between.push(current)
+          tail.unshift(current)
         }
+
+        current = startRoot.parentNode
+
+        while(current.nextSibling != endRoot.parentNode) {
+          between.push(current = current.nextSibling)
+        }
+
+        between = between.concat(tail)
       }
 
       return between

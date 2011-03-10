@@ -79,3 +79,51 @@ test("spanning nodes", function() {
     " amet."
   ])
 })
+
+test("spanning more nodes", function() {
+  var doc = $("<div>").html('<p>lorem ip <strong>sum</strong> </p><p><a href="/">dolor</a> </p><p>blah <em>sit</em> amet.</p>')
+  var p = doc.find("p")
+  var p1 = p[0]
+  var p2 = p[1]
+  var p3 = p[2]
+
+  var elems = Wapper.split({
+    commonAncestorContainer: doc[0],
+    startContainer: p1.firstChild,
+    startOffset: 6,
+    endContainer: p3.childNodes[1].firstChild,
+    endOffset: 2
+  })
+
+  assertSameNodes(elems, [
+    p1.childNodes[1],
+    p1.childNodes[2],
+    p1.childNodes[3],
+    p2,
+    p3.firstChild,
+    p3.childNodes[1]
+  ])
+  assertChildNodeTypes(p1, [3, 3, 1, 3])
+  assertChildNodeText(p1, [
+    "lorem ",
+    "ip ",
+    "sum",
+    " "
+  ])
+  assertChildNodeTypes(p2, [1, 3])
+  assertChildNodeText(p2, [
+    "dolor",
+    " "
+  ])
+  assertChildNodeTypes(p3, [3, 1, 3])
+  assertChildNodeText(p3, [
+    "blah ",
+    "sit",
+    " amet."
+  ])
+  assertChildNodeTypes(p3.childNodes[1], [3, 3])
+  assertChildNodeText(p3.childNodes[1], [
+    "si",
+    "t"
+  ])
+})
