@@ -71,16 +71,35 @@ var Wapper = {
 
   wrap: function(range) {
     var elems = this.split(range)
+    var currentParent
+    var groups = []
 
     function createWrapper() {
       return document.createElement("span")
     }
 
+    // Group contained nodes by shared parent.
     for (var i = 0; i < elems.length; i++) {
-      var wrapper = createWrapper()
       var elem = elems[i]
-      wrapper.appendChild(elem.cloneNode(true))
-      elem.parentNode.replaceChild(wrapper, elem)
+
+      if (elem.parentNode == currentParent) {
+        groups[groups.length - 1].push(elem)
+      } else {
+        groups.push([elem])
+      }
+
+      currentParent = elem.parentNode
+    }
+
+    for (var g = 0; g < groups.length; g++) {
+      var children = groups[g]
+      var wrapper = createWrapper()
+
+      children[0].parentNode.insertBefore(wrapper, children[0])
+
+      for (var c = 0; c < children.length; c++) {
+        wrapper.appendChild(children[c])
+      }
     }
   }
 }
