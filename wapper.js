@@ -31,6 +31,22 @@ var Wapper = {
         var start = startParent.splitText(range.startOffset)
         var end = endParent
 
+        function nextViaParent(node) {
+          if (node.nextSibling) {
+            return node.nextSibling
+          } else {
+            return nextViaParent(node.parentNode)
+          }
+        }
+
+        function previousViaParent(node) {
+          if (node.previousSibling) {
+            return node.previousSibling
+          } else {
+            return previousViaParent(node.parentNode)
+          }
+        }
+
         // Ascend DOM until parent is a child of the common ancestor.
         function rootNode(node) {
           while (node.parentNode.parentNode != commonAncestor) {
@@ -41,28 +57,19 @@ var Wapper = {
 
         var startRoot = rootNode(start)
         var endRoot = rootNode(end)
-        var current
+        var current = start
 
-        current = startRoot
-
-        for (current; current; current = current.nextSibling) {
+        while (current.parentNode != commonAncestor) {
           between.push(current)
+          current = nextViaParent(current)
         }
 
         var tail = []
         current = endParent
 
-        function previous(node) {
-          if (node.previousSibling) {
-            return node.previousSibling
-          } else {
-            return previous(node.parentNode)
-          }
-        }
-
         while (current.parentNode != commonAncestor) {
           tail.unshift(current)
-          current = previous(current)
+          current = previousViaParent(current)
         }
 
         current = startRoot.parentNode

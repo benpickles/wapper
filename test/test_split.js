@@ -89,26 +89,29 @@ test("spanning more nodes", function() {
 
   var elems = Wapper.split({
     commonAncestorContainer: doc[0],
-    startContainer: p1.firstChild,
-    startOffset: 6,
+    startContainer: p1.childNodes[1].firstChild,
+    startOffset: 1,
     endContainer: p3.childNodes[1].firstChild,
     endOffset: 2
   })
 
   assertSameNodes(elems, [
-    p1.childNodes[1],
+    p1.childNodes[1].childNodes[1],
     p1.childNodes[2],
-    p1.childNodes[3],
     p2,
     p3.firstChild,
     p3.childNodes[1].firstChild
   ])
-  assertChildNodeTypes(p1, [3, 3, 1, 3])
+  assertChildNodeTypes(p1, [3, 1, 3])
   assertChildNodeText(p1, [
-    "lorem ",
-    "ip ",
+    "lorem ip ",
     "sum",
     " "
+  ])
+  assertChildNodeTypes(p1.childNodes[1], [3, 3])
+  assertChildNodeText(p1.childNodes[1], [
+    "s",
+    "um",
   ])
   assertChildNodeTypes(p2, [1, 3])
   assertChildNodeText(p2, [

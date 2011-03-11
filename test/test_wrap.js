@@ -56,13 +56,13 @@ test("spanning more nodes", function() {
 
   Wapper.wrap({
     commonAncestorContainer: doc[0],
-    startContainer: p1.firstChild,
-    startOffset: 6,
+    startContainer: p1.childNodes[1].firstChild,
+    startOffset: 1,
     endContainer: p3.childNodes[1].firstChild,
     endOffset: 2
   })
 
-  equals(doc.html(), '<p>lorem <span>ip <strong>sum</strong> </span></p><p><span><a href="/">dolor</a> </span></p><p><span>blah </span><em><span>si</span>t</em> amet.</p>')
+  equals(doc.html(), '<p>lorem ip <strong>s<span>um</span></strong><span> </span></p><p><span><a href="/">dolor</a> </span></p><p><span>blah </span><em><span>si</span>t</em> amet.</p>')
 
   doc.detach()
 })
