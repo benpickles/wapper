@@ -50,15 +50,24 @@ var Wapper = {
         }
 
         var tail = []
-        current = endRoot
+        current = endParent
 
-        for (current; current; current = current.previousSibling) {
+        function previous(node) {
+          if (node.previousSibling) {
+            return node.previousSibling
+          } else {
+            return previous(node.parentNode)
+          }
+        }
+
+        while (current.parentNode != commonAncestor) {
           tail.unshift(current)
+          current = previous(current)
         }
 
         current = startRoot.parentNode
 
-        while(current.nextSibling != endRoot.parentNode) {
+        while (current.nextSibling != endRoot.parentNode) {
           between.push(current = current.nextSibling)
         }
 

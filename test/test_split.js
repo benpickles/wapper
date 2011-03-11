@@ -101,7 +101,7 @@ test("spanning more nodes", function() {
     p1.childNodes[3],
     p2,
     p3.firstChild,
-    p3.childNodes[1]
+    p3.childNodes[1].firstChild
   ])
   assertChildNodeTypes(p1, [3, 3, 1, 3])
   assertChildNodeText(p1, [
