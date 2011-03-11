@@ -89,7 +89,7 @@ var Wapper = {
 
     function display(elem) {
       if (elem.nodeType != 1) return
-      var style = window.getComputedStyle(elem)
+      var style = window.getComputedStyle(elem, null)
       return style && style.getPropertyValue("display")
     }
 
