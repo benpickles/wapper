@@ -87,7 +87,12 @@ var Wapper = {
       return document.createElement("span")
     }
 
-    // Group contained nodes by shared parent.
+    function display(elem) {
+      var style = window.getComputedStyle(elem)
+      return style && style.getPropertyValue("display")
+    }
+
+    // Group nodes by shared parent.
     for (var i = 0; i < elems.length; i++) {
       var elem = elems[i]
 
@@ -102,12 +107,28 @@ var Wapper = {
 
     for (var g = 0; g < groups.length; g++) {
       var children = groups[g]
-      var wrapper = createWrapper()
 
-      children[0].parentNode.insertBefore(wrapper, children[0])
+      if (display(children[0]) == "block") {
+        // Wrap a block-element's children not the block element itself.
+        for (var c = 0; c < children.length; c++) {
+          var wrapper = createWrapper()
 
-      for (var c = 0; c < children.length; c++) {
-        wrapper.appendChild(children[c])
+          while (children[0].childNodes.length) {
+            wrapper.appendChild(children[0].firstChild)
+          }
+
+          children[0].appendChild(wrapper)
+        }
+      } else {
+        var wrapper = createWrapper()
+
+        // Insert the wrapper before the first element.
+        children[0].parentNode.insertBefore(wrapper, children[0])
+
+        // Move the contained elements into the wrapper.
+        for (var c = 0; c < children.length; c++) {
+          wrapper.appendChild(children[c])
+        }
       }
     }
   }

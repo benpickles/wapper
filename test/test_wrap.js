@@ -46,7 +46,9 @@ test("spanning nodes", function() {
 })
 
 test("spanning more nodes", function() {
-  var doc = $("<div>").html('<p>lorem ip <strong>sum</strong> </p><p><a href="/">dolor</a> </p><p>blah <em>sit</em> amet.</p>')
+  var doc = $("<div>")
+    .html('<p>lorem ip <strong>sum</strong> </p><p><a href="/">dolor</a> </p><p>blah <em>sit</em> amet.</p>')
+    .appendTo("body")
   var p = doc.find("p")
   var p1 = p[0]
   var p2 = p[1]
@@ -61,4 +63,6 @@ test("spanning more nodes", function() {
   })
 
   equals(doc.html(), '<p>lorem <span>ip <strong>sum</strong> </span></p><p><span><a href="/">dolor</a> </span></p><p><span>blah </span><em><span>si</span>t</em> amet.</p>')
+
+  doc.detach()
 })
