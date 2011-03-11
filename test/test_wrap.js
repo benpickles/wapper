@@ -4,7 +4,7 @@ test("with same parent", function() {
   var doc = $("<div>").html("<p>lorem ipsum dolor sit amet.</p>")
   var p = doc.find("p")[0]
 
-  Wapper.wrap({
+  var spans = Wapper.wrap({
     startContainer: p.firstChild,
     startOffset: 6,
     endContainer: p.firstChild,
@@ -12,13 +12,14 @@ test("with same parent", function() {
   })
 
   equals(doc.html(), "<p>lorem <span>ipsum</span> dolor sit amet.</p>")
+  assertSameNodes(spans, doc.find("span").get())
 })
 
 test("with containing node", function() {
   var doc = $("<div>").html('<p>lorem ipsum <a href="/">dolor</a> sit amet.</p>')
   var p = doc.find("p")[0]
 
-  Wapper.wrap({
+  var spans = Wapper.wrap({
     commonAncestorContainer: p,
     startContainer: p.firstChild,
     startOffset: 6,
@@ -27,6 +28,7 @@ test("with containing node", function() {
   })
 
   equals(doc.html(), '<p>lorem <span>ipsum <a href="/">dolor</a> sit</span> amet.</p>')
+  assertSameNodes(spans, doc.find("span").get())
 })
 
 test("spanning nodes", function() {
@@ -34,7 +36,7 @@ test("spanning nodes", function() {
   var p1 = doc.find("p:first")[0]
   var p2 = doc.find("p:last")[0]
 
-  Wapper.wrap({
+  var spans = Wapper.wrap({
     commonAncestorContainer: doc[0],
     startContainer: p1.firstChild,
     startOffset: 6,
@@ -43,6 +45,7 @@ test("spanning nodes", function() {
   })
 
   equals(doc.html(), '<p>lorem <span>ipsum <a href="/">dolor</a> </span></p><p><span>sit</span> amet.</p>')
+  assertSameNodes(spans, doc.find("span").get())
 })
 
 test("spanning more nodes", function() {
@@ -54,7 +57,7 @@ test("spanning more nodes", function() {
   var p2 = p[1]
   var p3 = p[2]
 
-  Wapper.wrap({
+  var spans = Wapper.wrap({
     commonAncestorContainer: doc[0],
     startContainer: p1.childNodes[1].firstChild,
     startOffset: 1,
@@ -63,6 +66,7 @@ test("spanning more nodes", function() {
   })
 
   equals(doc.html(), '<p>lorem ip <strong>s<span>um</span></strong><span> </span></p><p><span><a href="/">dolor</a> </span></p><p><span>blah </span><em><span>si</span>t</em> amet.</p>')
+  assertSameNodes(spans, doc.find("span").get())
 
   doc.detach()
 })

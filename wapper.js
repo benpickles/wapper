@@ -89,6 +89,7 @@ var Wapper = {
     var elems = this.split(range)
     var currentParent
     var groups = []
+    var spans = []
 
     function createWrapper() {
       return document.createElement("span")
@@ -120,6 +121,7 @@ var Wapper = {
         // Wrap a block-element's children not the block element itself.
         for (var c = 0; c < children.length; c++) {
           var wrapper = createWrapper()
+          spans.push(wrapper)
 
           while (children[0].childNodes.length) {
             wrapper.appendChild(children[0].firstChild)
@@ -129,6 +131,7 @@ var Wapper = {
         }
       } else {
         var wrapper = createWrapper()
+        spans.push(wrapper)
 
         // Insert the wrapper before the first element.
         children[0].parentNode.insertBefore(wrapper, children[0])
@@ -139,5 +142,7 @@ var Wapper = {
         }
       }
     }
+
+    return spans
   }
 }
