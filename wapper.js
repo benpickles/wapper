@@ -14,7 +14,7 @@ var Wapper = {
       var commonAncestor = range.commonAncestorContainer
       var between = []
 
-      if (commonAncestor == startParent.parentNode) {
+      if (commonAncestor == startParent.parentNode && commonAncestor == endParent.parentNode) {
         // Common scenario where selection contains a few text and element
         // nodes within a block-level element - a <p> for instance.
 
@@ -60,18 +60,27 @@ var Wapper = {
         var current = start
 
         // Start.
-        while (current.parentNode != commonAncestor) {
-          between.push(current)
-          current = nextViaParent(current)
+        if (startRoot == start) {
+          between.push(startRoot)
+        } else {
+          while (current.parentNode != commonAncestor) {
+            between.push(current)
+            current = nextViaParent(current)
+          }
         }
 
         var tail = []
-        current = endParent
 
         // End.
-        while (current.parentNode != commonAncestor) {
-          tail.unshift(current)
-          current = previousViaParent(current)
+        if (endRoot == endParent) {
+          tail.push(endRoot)
+        } else {
+          current = endParent
+
+          while (current.parentNode != commonAncestor) {
+            tail.unshift(current)
+            current = previousViaParent(current)
+          }
         }
 
         current = startRoot
