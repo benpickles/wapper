@@ -47,9 +47,9 @@ var Wapper = {
           }
         }
 
-        // Ascend DOM until parent is a child of the common ancestor.
+        // Ascend the DOM until finding a direct child of the common ancestor.
         function rootNode(node) {
-          while (node.parentNode.parentNode != commonAncestor) {
+          while (node.parentNode != commonAncestor) {
             node = node.parentNode
           }
           return node
@@ -59,6 +59,7 @@ var Wapper = {
         var endRoot = rootNode(end)
         var current = start
 
+        // Start.
         while (current.parentNode != commonAncestor) {
           between.push(current)
           current = nextViaParent(current)
@@ -67,14 +68,16 @@ var Wapper = {
         var tail = []
         current = endParent
 
+        // End.
         while (current.parentNode != commonAncestor) {
           tail.unshift(current)
           current = previousViaParent(current)
         }
 
-        current = startRoot.parentNode
+        current = startRoot
 
-        while (current.nextSibling != endRoot.parentNode) {
+        // Middle.
+        while (current.nextSibling != endRoot) {
           between.push(current = current.nextSibling)
         }
 
