@@ -32,19 +32,11 @@ var Wapper = {
         var end = endParent
 
         function nextViaParent(node) {
-          if (node.nextSibling) {
-            return node.nextSibling
-          } else {
-            return nextViaParent(node.parentNode)
-          }
+          return node.nextSibling || nextViaParent(node.parentNode)
         }
 
         function previousViaParent(node) {
-          if (node.previousSibling) {
-            return node.previousSibling
-          } else {
-            return previousViaParent(node.parentNode)
-          }
+          return node.previousSibling || previousViaParent(node.parentNode)
         }
 
         // Ascend the DOM until finding a direct child of the common ancestor.
