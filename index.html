@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>Wapper (wapər)</title>
+<link href="assets/style.css" rel="stylesheet">
+</head>
+<body>
+  <div id="fork-me"><a href="https://github.com/benpickles/wapper">Fork me on GitHub</a></div>
+
+  <article>
+    <h1>Wapper <em>(wapər)</em></h1>
+
+    <p>Wapper is a JavaScript library to wrap selected text in other elements.
+      Wapper takes a <a href="https://developer.mozilla.org/en/DOM/range">Range</a>
+      object and smartly wraps its contents, here's a quick example:</p>
+
+    <pre><code>// Given the document:
+// &lt;p&gt;Lorem ipsum dolor sit amet.&lt;/p&gt;
+
+var textNode = $$("p")[0].firstChild
+
+var range = document.createRange()
+document.setStart(textNode, 6)
+document.setEnd(textNode, 11)
+
+// Wrap and return an array of the wrapped elements.
+var wrapped = Wapper.wrap(range)
+// [&lt;span&gt;ipsum&lt;/span&gt;]
+
+// Alters the document like so:
+// &lt;p&gt;Lorem &lt;span&gt;ipsum&lt;/span&gt; dolor sit amet.&lt;/p&gt;
+</code></pre>
+
+    <p>The <a href="./test/index.html">unit tests</a> demonstrate some of the
+      more complex examples.</p>
+  </article>
+
+  <footer>
+    <p>
+      &copy; 2011 <a href="http://benpickles.com/">Ben Pickles</a>,
+      see <a href="http://github.com/benpickles/wapper/blob/master/LICENSE">LICENSE</a> for details.
+    </p>
+  </footer>
+</body>
+</html>

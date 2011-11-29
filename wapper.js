@@ -1,3 +1,9 @@
+// Wapper version 0.1.0
+// (c) 2011 Ben Pickles
+//
+// http://benpickles.github.com/wapper
+//
+// Released under MIT license.
 var Wapper = {
   split: function(range) {
     var startParent = range.startContainer
