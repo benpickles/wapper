@@ -150,3 +150,18 @@ test("spanning more nodes", function() {
 
   doc.detach()
 })
+
+test("wrap with something other than a span", function() {
+  var doc = $("<div>").html("<p>lorem ipsum dolor sit amet.</p>")
+  var p = doc.find("p")[0]
+
+  var wrapped = Wapper.wrap({
+    startContainer: p.firstChild,
+    startOffset: 6,
+    endContainer: p.firstChild,
+    endOffset: 11
+  }, "STRONG")
+
+  equals(doc.html(), "<p>lorem <strong>ipsum</strong> dolor sit amet.</p>")
+  assertSameNodes(wrapped, doc.find("strong").get())
+})
