@@ -165,3 +165,18 @@ test("wrap with something other than a span", function() {
   equals(doc.html(), "<p>lorem <strong>ipsum</strong> dolor sit amet.</p>")
   assertSameNodes(wrapped, doc.find("strong").get())
 })
+
+test("with same start and end position", function() {
+  var doc = $("<div>").html("<p>lorem ipsum dolor sit amet.</p>")
+  var p = doc.find("p")[0]
+
+  var elems = Wapper.split({
+    startContainer: p.firstChild,
+    startOffset: 5,
+    endContainer: p.firstChild,
+    endOffset: 5
+  })
+
+  equals(doc.html(), "<p>lorem ipsum dolor sit amet.</p>")
+  same(elems, [])
+})

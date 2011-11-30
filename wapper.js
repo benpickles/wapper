@@ -11,7 +11,7 @@ var Wapper = {
 
     if (startParent == endParent) {
       // Achtung! Zero-length selection.
-      if (range.startOffset == range.endOffset) return
+      if (range.startOffset == range.endOffset) return []
 
       endParent.splitText(range.endOffset)
       var middle = startParent.splitText(range.startOffset)
