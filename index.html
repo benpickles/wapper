@@ -32,8 +32,8 @@
 var textNode = $$("p")[0].firstChild
 
 var range = document.createRange()
-document.setStart(textNode, 6)
-document.setEnd(textNode, 11)
+range.setStart(textNode, 6)
+range.setEnd(textNode, 11)
 
 // Wrap and return an array of the wrapped elements.
 var wrapped = Wapper.wrap(range)
